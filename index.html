@@ -4,10 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="/index.js" />
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script defer type="text/javascript" src="index.js"></script>
+    <title>Document</title> 
 </head>
 <body>
+
+    <header>
+      <h3>Fruit Rating</h3>
+    </header>
+
+    <!-- Fruit Menu -->
+    <div id="fruit-menu">
+      <!-- Fruit Images Here -->
+    </div>
+
+    <!-- Fruit Details -->
+    <div id="fruit-detail">
+      <img class="detail-image" src="./assets/image-placeholder.jpg" alt="Insert Name Here" />
+      <h2 class="name">Insert Name Here</h2>
+    </div>
+
+    <!-- Rating Form -->
+    <form id="fruit-rating" data-id="insert fruit ID">
+      <label for="rating">Rating: </label>
+      <input type="text" name="rating" id="rating" value="Insert Rating Here" />
+      <label for="comment">Comment: </label>
+      <textarea name="comment" id="comment">Insert Comment Here</textarea>
+      <input type="submit" value="Update" />
+    </form>
+    </form>
+  </body>
+</html>
     
 </body>
 </html>
