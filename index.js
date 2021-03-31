@@ -7,6 +7,25 @@ let fruitForm = document.querySelector("form#fruit-rating")
 let fruitFormRating = fruitForm.querySelector("input#rating")
 let fruitFormComment = fruitForm.querySelector("textarea#comment")
 
+// Nutrition Label 
+let fruitCalories = document.querySelector("td#calories")
+let fruitCaloriesValue = fruitCalories.querySelector("b")
+let fruitFat= document.querySelector("td#fat")
+let fruitFatValue= fruitFat.querySelector("b")
+let fruitCarbs= document.querySelector("td#carbs")
+let fruitCarbsValue= fruitCarbs.querySelector("b")
+let fruitSugars= document.querySelector("td#sugars")
+let fruitSugarsValue= fruitSugars.querySelector("b")
+let fruitProtein= document.querySelector("td#protein")
+let fruitProteinValue= fruitProtein.querySelector("b")
+
+
+
+
+
+
+
+
 let displayFruit = {}
 
 // fetch API_URL, {
@@ -29,19 +48,29 @@ fetch(API_URL)
 
         fruitImage.addEventListener("click", function(evt){
             fillFruitInfo(fruitObj)
+          //  console.log(fruitObj)
         })
     })
 })
 
-function fillFruitInfo(fruitObj1){
-    fruitDetailImageImg.src = fruitObj1.image
-    fruitDetailImageName.innerText = fruitObj1.name
+function fillFruitInfo(fruitObj){
+    fruitDetailImageImg.src = fruitObj.image
+    fruitDetailImageName.innerText = fruitObj.name
 
-    fruitFormRating.value = fruitObj1.ratings
-    fruitFormComment.innerText = fruitObj1.comments
-    fruitFormComment.value = fruitObj1.comments
+    fruitFormRating.value = fruitObj.ratings
+    fruitFormComment.innerText = fruitObj.comments
+    fruitFormComment.value = fruitObj.comments
+    // Nutrition Label
+    fruitCaloriesValue.innerText = fruitObj.calories
+    fruitFatValue.innerText = fruitObj.fat + "g"
+    fruitCarbsValue.innerText = fruitObj.carbohydrates + "g"
+    fruitSugarsValue.innerText = fruitObj.sugar + "g"
+    fruitProteinValue.innerText = fruitObj.protein + "g"
 
-    displayFruit = fruitObj1
+
+
+    displayFruit = fruitObj
+   // console.log(fruitObj)
 }
 
 fruitForm.addEventListener("submit", function(evt){
@@ -70,6 +99,12 @@ fruitForm.addEventListener("submit", function(evt){
     .then (updatedfruitObj => {
     displayFruit.rating = updatedfruitObj.ratings
     displayFruit.comment = updatedfruitObj.comments
+    //fruitObj = updatedfruitObj
 
+
+    fruitFormRating.value = updatedfruitObj.ratings
+    fruitFormComment.innerText = updatedfruitObj.comments
+    fruitFormComment.value = updatedfruitObj.comments
+    //console.log(fruitObj)
 })
 })
