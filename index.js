@@ -19,6 +19,7 @@ let displayFruit = {}
 fetch(API_URL)
 .then(res => res.json())
 .then(function(fruitArr){
+    fillFruitInfo(fruitArr[0])
     fruitArr.forEach(function(fruitObj){
         // console.log(fruitObj)
         let fruitImage = document.createElement("img")
@@ -27,31 +28,30 @@ fetch(API_URL)
         fruitMenu.append(fruitImage)
 
         fruitImage.addEventListener("click", function(evt){
-            fruitDetailImageImg.src = fruitObj.image
-            fruitDetailImageName.innerText = fruitObj.name
-
-            fruitFormRating.value = fruitObj.ratings
-            fruitFormComment.innerText = fruitObj.comments
-
-            displayFruit = fruitObj
-
-
+            fillFruitInfo(fruitObj)
         })
     })
 })
+
+function fillFruitInfo(fruitObj1){
+    fruitDetailImageImg.src = fruitObj1.image
+    fruitDetailImageName.innerText = fruitObj1.name
+
+    fruitFormRating.value = fruitObj1.ratings
+    fruitFormComment.innerText = fruitObj1.comments
+    fruitFormComment.value = fruitObj1.comments
+
+    displayFruit = fruitObj1
+}
 
 fruitForm.addEventListener("submit", function(evt){
     evt.preventDefault()
 
 
     let fruitId = displayFruit.id
-
     let fruitRating = fruitFormRating.value
-
-
     let fruitComment = fruitFormComment.value
 
-debugger
 
     fetch (`http://localhost:3000/Fruit/${fruitId}`, { 
     method: 'PATCH',
