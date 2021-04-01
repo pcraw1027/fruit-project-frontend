@@ -10,23 +10,21 @@ let fruitFormComment = fruitForm.querySelector("textarea#comment")
 // Nutrition Label 
 let fruitCalories = document.querySelector("td#calories")
 let fruitCaloriesValue = fruitCalories.querySelector("b")
-let fruitFat= document.querySelector("td#fat")
-let fruitFatValue= fruitFat.querySelector("b")
-let fruitCarbs= document.querySelector("td#carbs")
-let fruitCarbsValue= fruitCarbs.querySelector("b")
-let fruitSugars= document.querySelector("td#sugars")
-let fruitSugarsValue= fruitSugars.querySelector("b")
-let fruitProtein= document.querySelector("td#protein")
-let fruitProteinValue= fruitProtein.querySelector("b")
+let fruitFat = document.querySelector("td#fat")
+let fruitFatValue = fruitFat.querySelector("b")
+let fruitCarbs = document.querySelector("td#carbs")
+let fruitCarbsValue = fruitCarbs.querySelector("b")
+let fruitSugars = document.querySelector("td#sugars")
+let fruitSugarsValue = fruitSugars.querySelector("b")
+let fruitProtein = document.querySelector("td#protein")
+let fruitProteinValue = fruitProtein.querySelector("b")
 
-
-
-
-
-
-
+// Delete button
+let deleteForm = document.querySelector("form#fruit-delete")
+let deleteFormDelete = deleteForm.querySelector("#delete")
 
 let displayFruit = {}
+let fruitId = 0
 
 // fetch API_URL, {
 //     method: 'GET'
@@ -77,7 +75,7 @@ fruitForm.addEventListener("submit", function(evt){
     evt.preventDefault()
 
 
-    let fruitId = displayFruit.id
+    fruitId = displayFruit.id
     let fruitRating = fruitFormRating.value
     let fruitComment = fruitFormComment.value
 
@@ -97,8 +95,8 @@ fruitForm.addEventListener("submit", function(evt){
 })
     .then (res => res.json ())
     .then (updatedfruitObj => {
-    displayFruit.rating = updatedfruitObj.ratings
-    displayFruit.comment = updatedfruitObj.comments
+    displayFruit.ratings = updatedfruitObj.ratings
+    displayFruit.comments = updatedfruitObj.comments
     //fruitObj = updatedfruitObj
 
 
@@ -107,4 +105,42 @@ fruitForm.addEventListener("submit", function(evt){
     fruitFormComment.value = updatedfruitObj.comments
     //console.log(fruitObj)
 })
+})
+
+deleteForm.addEventListener("submit", function(evt){
+    evt.preventDefault()
+    // console.log("delete")
+
+    fruitId = displayFruit.id
+
+    console.log(fruitId, displayFruit.id)
+
+    fetch (`http://localhost:3000/Fruit/${fruitId}`, { 
+    method: 'DELETE',
+    })
+
+    location.reload()
+
+
+
+//     fruitObj = {}
+    
+//     fetch(API_URL)
+//     .then(res => res.json())
+//     .then(function(fruitArr){
+//         fillFruitInfo(fruitArr[0])
+//         fruitArr.forEach(function(fruitObj){
+//         // console.log(fruitObj)
+//         let fruitImage = document.createElement("img")
+//             fruitImage.src = fruitObj.image
+//             fruitImage.alt = fruitObj.name
+//         fruitMenu.append(fruitImage)
+
+//         fruitImage.addEventListener("click", function(evt){
+//             fillFruitInfo(fruitObj)
+//           //  console.log(fruitObj)
+//         })
+//     })
+// })
+
 })
