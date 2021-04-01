@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/Fruit/"
+const API_URL = "http://localhost:3000/Fruits/"
 let fruitMenu = document.querySelector("div#fruit-menu")
 let fruitDetailImageDiv = document.querySelector("div#fruit-detail")
 let fruitDetailImageImg = fruitDetailImageDiv.querySelector("img")
@@ -42,6 +42,8 @@ fetch(API_URL)
         let fruitImage = document.createElement("img")
             fruitImage.src = fruitObj.image
             fruitImage.alt = fruitObj.name
+            fruitImage.id = fruitObj.id
+
         fruitMenu.append(fruitImage)
 
         fruitImage.addEventListener("click", function(evt){
@@ -52,9 +54,10 @@ fetch(API_URL)
 })
 
 function fillFruitInfo(fruitObj){
+    // Image & Name
     fruitDetailImageImg.src = fruitObj.image
     fruitDetailImageName.innerText = fruitObj.name
-
+    // Ratings & Comment
     fruitFormRating.value = fruitObj.ratings
     fruitFormComment.innerText = fruitObj.comments
     fruitFormComment.value = fruitObj.comments
@@ -80,7 +83,7 @@ fruitForm.addEventListener("submit", function(evt){
     let fruitComment = fruitFormComment.value
 
 
-    fetch (`http://localhost:3000/Fruit/${fruitId}`, { 
+    fetch (`http://localhost:3000/Fruits/${fruitId}`, { 
     method: 'PATCH',
     headers: {
         "content-type": "application/json"
@@ -113,34 +116,34 @@ deleteForm.addEventListener("submit", function(evt){
 
     fruitId = displayFruit.id
 
-    console.log(fruitId, displayFruit.id)
+    // console.log(fruitId, displayFruit.id)
 
-    fetch (`http://localhost:3000/Fruit/${fruitId}`, { 
+    fetch (`http://localhost:3000/Fruits/${fruitId}`, { 
     method: 'DELETE',
     })
+    .then (res => res.json())
+    .then (function(deletedFruitObj) {
+        console.log(deletedFruitObj)
+        fruitObj = deletedFruitObj
 
-    location.reload()
+        let delFruit = document.getElementById(fruitId)
+        delFruit.remove()
 
+        fruitDetailImageImg.src = deletedFruitObj.image
+        fruitDetailImageName.innerText = deletedFruitObj.name
 
+        fruitFormRating.value = deletedFruitObj.ratings
+        fruitFormComment.innerText = deletedFruitObj.comments
+        fruitFormComment.value = deletedFruitObj.comments
 
-//     fruitObj = {}
+        fruitCaloriesValue.innerText = deletedFruitObj.comments
+        fruitFatValue.innerText = deletedFruitObj.comments
+        fruitCarbsValue.innerText = deletedFruitObj.comments
+        fruitSugarsValue.innerText = deletedFruitObj.comments
+        fruitProteinValue.innerText = deletedFruitObj.comments
     
-//     fetch(API_URL)
-//     .then(res => res.json())
-//     .then(function(fruitArr){
-//         fillFruitInfo(fruitArr[0])
-//         fruitArr.forEach(function(fruitObj){
-//         // console.log(fruitObj)
-//         let fruitImage = document.createElement("img")
-//             fruitImage.src = fruitObj.image
-//             fruitImage.alt = fruitObj.name
-//         fruitMenu.append(fruitImage)
+    })
 
-//         fruitImage.addEventListener("click", function(evt){
-//             fillFruitInfo(fruitObj)
-//           //  console.log(fruitObj)
-//         })
-//     })
-// })
+    // location.reload()
 
 })
